@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Organizers | Sky Team</title>
+
+    <!--swiper css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!--font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="icon" type="image/x-icon" href="https://github.com/KandhalShakil/Sky_Event/blob/main/logo.jpg?raw=true">
+    <!--tailwind css-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--css file-->
+    <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body>
+    <!-- Popup -->
+    <div class="popup">
+        <p>
+            <center class="alert">Message Sent! 📨</center>
+            <br>
+        <p class="massage"></p>
+        <br>
+        <button onclick="closePop()">Close</button>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="login-username">Email</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-username" class="form-control"
+                            placeholder="Enter your Login Email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" class="form-control"
+                            placeholder="Enter your password" required>
+                        <button class="password-toggle" type="button" onclick="togglePassword('login-password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn-submit" onclick="login_check()">Login</button>
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="javascript:void(0)" onclick="showModal('registerModal')">Register
+                            Now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register</h2>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-name" class="form-control" placeholder="Enter your full name"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" class="form-control" placeholder="Enter your email"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-number">Phone Number</label>
+                    <div class="input-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="email" id="register-number" class="form-control" placeholder="Enter your Phone Number"
+                            required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" class="form-control"
+                            placeholder="Create a password" required>
+                        <button class="password-toggle" type="button" onclick="togglePassword('register-password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-confirm" class="form-control"
+                            placeholder="Confirm your password" required>
+                        <button class="password-toggle" type="button" onclick="togglePassword('register-confirm')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn-submit" onclick="register_check()">Register</button>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="javascript:void(0)" onclick="showModal('loginModal')">Login
+                            Now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="booking-header">
+                <h2>Event Booking</h2>
+                <button class="close-btn" onclick="closeModal('bookingModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="package-info">
+                    <i class="fas fa-info-circle"></i> <span id="packageName">You have selected the Premium
+                        Package</span>
+                </div>
+
+        
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="booking-date">Event Date</label>
+                            <input type="date" id="booking-date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="booking-guests">Number of Guests</label>
+                            <input type="number" id="booking-guests" class="form-control"
+                                placeholder="Enter number of guests" min="1" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="booking-payment">Payment Method</label>
+                    <select id="booking-payment" class="form-control" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="credit-card">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bank-transfer">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <button class="btn-submit" onclick="Event_check()">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- header section starts  -->
+    <header class="header">
+        <a href="#">
+            <img src="https://github.com/KandhalShakil/Sky_Event/blob/main/logo.jpg?raw=true" class="logo"></a>
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#service">service</a>
+            <a href="#about">about</a>
+            <a href="#gallery">gallery</a>
+            <a href="#price">Packages</a>
+            <a href="#review">review</a>
+            <a href="#contact">contact</a>
+        </nav>
+
+        <button class="login-btn" onclick="showModal('loginModal')">Login</button>
+
+        <div id="menu-bars" class="fas fa-bars" onclick="toggleNavbar()"></div>
+    </header>
+
+    <div class="main">
+        <!-- home section starts  -->
+        <section class="home" id="home">
+            <div class="content">
+                <h3>
+                    where your ideas take off
+                    <p>SKY EVENT</p>
+                    <a href="#service" class="btn">Discover More</a>
+                </h3>
+            </div>
+
+            <div class="swiper-container home-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://t4.ftcdn.net/jpg/08/44/99/67/360_F_844996789_BFT8WeCin0UWrGkU7H7BR2v0q4gaADWE.jpg"
+                            alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cdn.pixabay.com/photo/2018/05/10/11/34/concert-3387324_1280.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cdn.pixabay.com/photo/2017/08/23/16/05/iocenters-2673327_1280.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cdn.pixabay.com/photo/2018/07/05/14/45/conference-3518465_1280.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cdn.pixabay.com/photo/2013/02/20/01/04/meeting-83519_1280.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.bollywoodshaadis.com/img/article-2023926813163947799000.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.pinimg.com/736x/ed/8e/3c/ed8e3ca2ec14d0a63d0ee2a695d84f45.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cdn.pixabay.com/photo/2020/01/15/17/35/concert-4768496_1280.jpg" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://content.jdmagicbox.com/comp/ahmedabad/f3/079pxx79.xx79.160926160114.a7f3/catalogue/green-valley-party-plot-sanand-city-sanand-banquet-halls-ertmot3bww.jpg"
+                            alt="" />
+                    </div>
+
+                    <div class="swiper-slide">
+                        <img src="https://images5.alphacoders.com/353/thumb-1920-353381.jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- service section starts  -->
+        <section class="service" id="service">
+            <h1 class="heading">our <span>services</span></h1>
+
+            <div class="box-container">
+                <div class="box">
+                    <i class="fas fa-envelope"></i>
+                    <h3>invitation card design</h3>
+                    <p>
+                        Make the right impression with beautifully crafted invitation cards. Our design team creates
+                        personalized
+                        invitations that reflect the theme of your event, ensuring they are as unique and memorable as
+                        your
+                        celebration.
+                    </p>
+                </div>
+                <div class="box">
+                    <i class="fas fa-photo-video"></i>
+                    <h3>photos and videos</h3>
+                    <p>
+                        Capture the moments that matter with our professional photography and videography services. From
+                        candid
+                        snapshots to cinematic event coverage, we provide high-quality memories you can cherish for a
+                        lifetime.
+                    </p>
+                </div>
+                <div class="box">
+                    <i class="fas fa-music"></i>
+                    <h3>entertainment</h3>
+                    <p>
+                        Keep your guests entertained with our curated entertainment options. Whether you're looking for
+                        live bands,
+                        DJs, magicians, or performers, we bring the best talent to set the mood and elevate your event
+                        experience.
+                    </p>
+                </div>
+                <div class="box">
+                    <i class="fas fa-car"></i>
+                    <h3>Event vehicles</h3>
+                    <p>Arrive in style with our range of luxury vehicles. From sleek limousines to comfortable shuttles
+                        for
+                        guests, we ensure smooth and classy transportation options for your event. Your journey to and
+                        from the
+                        venue will be as
+                        memorable as the event itself.</p>
+                </div>
+                <div class="box">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>venue selection</h3>
+                    <p>
+                        Choosing the perfect venue is crucial for any event's success. Our team specializes in finding
+                        venues that
+                        match your vision and requirements. Whether it's an elegant ballroom, a scenic outdoor setting,
+                        or a cozy
+                        indoor space, we help you secure the ideal location to make your event truly special.
+                    </p>
+                </div>
+                <div class="box">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h3>food catering</h3>
+                    <p>
+                        Delight your guests with exquisite catering services tailored to suit your event. Our culinary
+                        team offers a
+                        wide variety of cuisines, ranging from traditional favorites to modern delicacies. With fresh
+                        ingredients
+                        and impeccable presentation, we ensure a dining experience that your guests will never forget.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- about section starts  -->
+        <section class="about" id="about">
+            <h1 class="heading"> about <span>us</span></h1>
+
+            <div class="row">
+                <div class="image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Our Team" />
+                </div>
+
+                <div class="content">
+                    <h3>Our Team for careful planning of event</h3>
+                    <p>
+                        Event management is the application of project management to the creation
+                        and development of small and/or large-scale personal or corporate events
+                        such as festivals, conferences, ceremonies, weddings, formal parties, concerts,
+                        or conventions.
+                    </p>
+                    <p>
+                        People working in such a job profile are responsible to plan each and
+                        every detail of an event which can be a wedding, conference or even a
+                        corporate party for their client. They usually create a detail plan of
+                        the event right from the theme, logistics to the budget.
+                    </p>
+                    <button class="btn">reach us</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- gallery section starts  -->
+        <section class="gallery" id="gallery">
+            <h1 class="heading">our <span>gallery</span></h1>
+            <div class="box-container">
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/20520319/pexels-photo-20520319/free-photo-of-a-man-standing-in-front-of-a-church.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/9294072/pexels-photo-9294072.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/6544768/pexels-photo-6544768.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://www.shutterstock.com/shutterstock/videos/1101496565/thumb/1.jpg?ip=x480"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/wedding-card-design-template-679b68a52255f88bd2dd455b3756eb4f_screen.jpg?ts=1647344491"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://lh6.googleusercontent.com/BKaxhKTJ8fumHQSuuTRbkP09dFXiDDdVWgUXHaA2F11nvbOVb7IsgkiOvIszVnXdnGeIFM1DJgaY4uYVtiBMVcBcmZvMNpokqc_HVTAO2emrKMaoY0nzcGzvLwHaWrIn8lGAQo1XlyWhzfNJ1ySz9Q"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/11/Free-Golden-Wedding-Invitation-Photoshop-Template-870x489.jpg"
+                                alt="" />
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/11/Mini-Wedding-Invitation-Design-PSD-1180x664.jpg"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRvAvXVkzzPTkauFc6cqOEa2WBGK81LFt_oyapTqyQTQlTjUgGi"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://i.pinimg.com/736x/b8/47/d9/b847d99b033f62d7b93d11b045cbf52d.jpg" alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://t3.ftcdn.net/jpg/02/66/46/24/360_F_266462475_OsBNYnVAq4BYxIaW08t1YwavqKDbFZrU.jpg"
+                                alt="" />
+                        </div>
+                    </div>
+                    <div class="cube-slide">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/039/563/463/small/ai-generated-a-romantic-wedding-stage-adorned-with-delicate-flowers-emanating-an-atmosphere-of-love-and-enchantment-as-couples-exchange-vows-in-a-breathtaking-setting-photo.jpeg"
+                            alt="" />
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/31785987/pexels-photo-31785987/free-photo-of-artistic-black-and-white-portrait-by-window.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://media.istockphoto.com/id/497039777/photo/wedding-setting.jpg?s=612x612&w=0&k=20&c=uHwz_57iBRVXrUPacCiLTuTPYyZS1az9GA0sCDeMP5U="
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://watermark.lovepik.com/photo/20211123/large/lovepik-wedding-banquet-hall-picture_500865604.jpg"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://thumbs.dreamstime.com/b/wedding-banquet-hall-deluxe-34676247.jpg"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1420440/pexels-photo-1420440.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1128783/pexels-photo-1128783.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1533648/pexels-photo-1533648.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1061744/pexels-photo-1061744.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1751682/pexels-photo-1751682.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/2778436/pexels-photo-2778436.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/32274170/pexels-photo-32274170/free-photo-of-romantic-beachfront-wedding-setup-with-floral-arch.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/3990371/pexels-photo-3990371.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1405671/pexels-photo-1405671.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/2291462/pexels-photo-2291462.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/2165931/pexels-photo-2165931.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/933118/pexels-photo-933118.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1048029/pexels-photo-1048029.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1603884/pexels-photo-1603884.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1640057/pexels-photo-1640057.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/265791/pexels-photo-265791.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- packages section starts  -->
+        <section class="price" id="price">
+            <h1 class="heading">our <span>packages</span></h1>
+
+            <div class="box-container">
+                <div class="box">
+                    <h3 class="title">Basic</h3>
+                    <h3 class="amount">₹4,80,000.00</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i>Full service</li>
+                        <li><i class="fas fa-check"></i>Venue + basic decorations</li>
+                        <li><i class="fas fa-check"></i>Basic food according location</li>
+                        <li><i class="fas fa-check"></i>Cars</li>
+                    </ul>
+                    <button class="btn" onclick="Event_open('Basic')">Book Now</button>
+                </div>
+
+                <div class="box">
+                    <h3 class="title">Prime</h3>
+                    <h3 class="amount">₹6,80,000.00</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i>Full service</li>
+                        <li><i class="fas fa-check"></i>Venue + basic decorations</li>
+                        <li><i class="fas fa-check"></i>5 countries food</li>
+                        <li><i class="fas fa-check"></i>Luxury Cars</li>
+                    </ul>
+                    <button class="btn" onclick="Event_open('Prime')">Book Now</button>
+                </div>
+
+                <div class="box">
+                    <h3 class="title">Luxury</h3>
+                    <h3 class="amount">₹50,00,000.00</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i>Full service</li>
+                        <li><i class="fas fa-check"></i>Venue + Luxury decorations</li>
+                        <li><i class="fas fa-check"></i>15 countries food</li>
+                        <li><i class="fas fa-check"></i>Luxury Cars , 2 Airplane</li>
+                    </ul>
+                    <button class="btn" onclick="Event_open('Luxury')">Book Now</button>
+                </div>
+
+                <div class="box">
+                    <h3 class="title">Ultra</h3>
+                    <h3 class="amount" style="font-size: 3.2rem;">₹1,00,00,000.00</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i>Full service</li>
+                        <li><i class="fas fa-check"></i>Venue + Ultra Luxury decorations</li>
+                        <li><i class="fas fa-check"></i>95+ countries food</li>
+                        <li><i class="fas fa-check"></i>Ultra Luxury Cars , Cruse , Airplane</li>
+                    </ul>
+                    <button class="btn" onclick="Event_open('Ultra')">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Review section -->
+        <section class="review" id="review">
+            <h1 class="heading">client's <span>review</span></h1>
+            <div class="user-review">
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Nayan" />
+                    <h3>nayan</h3>
+                    <span>happy customer</span>
+                    <p>
+                        I highly recommend hiring a wedding coordinator for the day of. You don't want to
+                        deal with the craziness. You also don't want a friend or relative helping out as the
+                        coordinator.
+                    </p>
+                </div>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Om" />
+                    <h3>Om</h3>
+                    <span>happy customer</span>
+                    <p>
+                        I am a planner myself so was very careful about who I hired.
+                        I wanted someone who was top notch and affordable and Sky team are fantastic.
+                    </p>
+                </div>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Lisa" />
+                    <h3>Lisa</h3>
+                    <span>happy customer</span>
+                    <p>
+                        I highly recommend hiring a wedding coordinator for the day of. You don't want to
+                        deal with the craziness. You also don't want a friend or relative helping out.
+                    </p>
+                </div>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Nancy" />
+                    <h3>Nancy</h3>
+                    <span>happy customer</span>
+                    <p>
+                        I am a planner myself so was very careful about who I hired.
+                        I wanted someone who was top notch and affordable and Kalrav Tran and they team are fantastic.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- contact section starts  -->
+        <section class="contact" id="contact">
+            <h1 class="heading">contact <span>us</span></h1>
+
+            <form>
+                <div class="inputBox">
+                    <input type="text" placeholder="Your Name" required class="input" />
+                    <input type="email" placeholder="Your Email" required class="input" />
+                </div>
+                <div class="inputBox">
+                    <input type="tel" placeholder="Phone Number" required class="input" />
+                    <input type="text" placeholder="Subject" required class="input" />
+                </div>
+                <textarea placeholder="Your Message" cols="30" rows="10"></textarea>
+                <button class="btn" type="button" onclick="check()">Send Message</button>
+            </form>
+        </section>
+
+        <!-- footer section starts  -->
+        <section class="footer">
+            <div class="box-container">
+                <div class="box">
+                    <h3>branches</h3>
+                    <a href="https://www.google.com/maps/dir//%20bangalore,%20india"> <i
+                            class="fas fa-map-marker-alt"></i>
+                        bangalore </a>
+                    <a href="https://www.google.com/maps/dir//Hyderabad,%20India"><i class="fas fa-map-marker-alt"></i>
+                        hyderabad
+                    </a>
+                    <a href="https://www.google.com/maps/dir//delhi,%20India"> <i class="fas fa-map-marker-alt"></i>
+                        delhi </a>
+                    <a href="https://www.google.com/maps/dir//kolkata,%20India"> <i class="fas fa-map-marker-alt"></i>
+                        kolkata
+                    </a>
+                    <a href="https://www.google.com/maps/dir//chennai,%20India"> <i class="fas fa-map-marker-alt"></i>
+                        chennai
+                    </a>
+                </div>
+
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href="#home"> <i class="fas fa-arrow-right"></i> home </a>
+                    <a href="#service"> <i class="fas fa-arrow-right"></i> service </a>
+                    <a href="#about"> <i class="fas fa-arrow-right"></i> about </a>
+                    <a href="#gallery"> <i class="fas fa-arrow-right"></i> gallery </a>
+                    <a href="#price"> <i class="fas fa-arrow-right"></i> price </a>
+                    <a href="#review"> <i class="fas fa-arrow-right"></i> review </a>
+                    <a href="#contact"> <i class="fas fa-arrow-right"></i> contact </a>
+                </div>
+
+                <div class="box">
+                    <h3>contact info</h3>
+                    <a href="tel:9725845511"><i class="fas fa-phone"></i> +91 9725845511</a>
+                    <a href="mailto:kandhalshakil098@gmail.com"><i class="fas fa-envelope"></i>
+                        kandhalshakil098@gmail.com</a>
+                    <a href="https://www.google.com/maps/dir//%20bangalore,%20india%20-%20560054"><i
+                            class="fas fa-map-marker-alt"></i> bangalore, india - 560054</a>
+                </div>
+
+                <div class="box">
+                    <h3>follow us</h3>
+                    <a href="https://www.facebook.com/profile.php?id=61572410110871"> <i class="fab fa-facebook-f"></i>
+                        facebook </a>
+                    <a href="https://x.com/ShakilKandhal"> <i class="fab fa-twitter"></i> twitter </a>
+                    <a href="https://www.instagram.com/kandhal_shakil_551/"> <i class="fab fa-instagram"></i> instagram
+                    </a>
+                </div>
+            </div>
+
+            <div class="credit">
+                created by <span>Sky Event</span> | all rights reserved
+            </div>
+        </section>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="../static/app.js"></script>
+</body>
+
+</html>
